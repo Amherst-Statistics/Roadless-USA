@@ -1,0 +1,185 @@
+\documentclass[10pt]{article}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr,url,hyperref}
+\usepackage{graphicx,xspace}
+\usepackage{subfigure}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit,through}
+
+\oddsidemargin 0in  %0.5in
+\topmargin     0in
+\leftmargin    0in
+\rightmargin   0in
+\textheight    9in
+\textwidth     6in %6in
+%\headheight    0in
+%\headsep       0in
+%\footskip      0.5in
+
+\newtheorem{thm}{Theorem}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{obs}{Observation}
+\newtheorem{lemma}{Lemma}
+\newtheorem{claim}{Claim}
+\newtheorem{definition}{Definition}
+\newtheorem{question}{Question}
+\newtheorem{answer}{Answer}
+\newtheorem{problem}{Problem}
+\newtheorem{solution}{Solution}
+\newtheorem{conjecture}{Conjecture}
+
+\pagestyle{fancy}
+
+\lhead{\textsc{Nicholas Horton}}
+\chead{\textsc{STAT 135: Lecture notes}}
+\lfoot{}
+\cfoot{}
+%\cfoot{\thepage}
+\rfoot{}
+\renewcommand{\headrulewidth}{0.2pt}
+\renewcommand{\footrulewidth}{0.0pt}
+
+\title{STAT 135:\\Intro to Statistics via Modeling}
+\author{Nicholas Horton}
+\date{Spring 2017}
+
+\newcommand{\ans}{\vspace{0.25in}}
+\newcommand{\R}{{\sf R}\xspace}
+\newcommand{\cmd}[1]{\texttt{#1}}
+\newcommand{\Ex}{\mathbb{E}}
+
+\rhead{\textsc{March 28, 2017}}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+\noindent
+To receive full credit you must submit one copy of this handout with completed results and the names of the people in your group
+
+\vspace{.1in}
+
+\noindent
+NAMES: 
+
+\vspace{.4in}
+
+  \paragraph{Roadless America}
+
+Wilderness is, by definition, roadless.  Untouched areas provide important habitat and play a key role in ensuring ecological balance. According to the U.S. Geological Survey, roads affect the ecology of at least 22\% of the land area of the continental United States. Knowing what portion of the US is within 1 mile of a road can help determine wilderness areas since there is a link between access by road and human presence.
+
+A conservation policy called \emph{roadless area conservation} aims to limit road construction in order to halt negative environmental impact on designated public lands. The US Forest Service has formalized the concept of \emph{Inventoried Roadless Areas} as lands identified by governmental agencies without roads that could be candidates for roadless area conservation. According to the US Forest Service, inventoried roadless areas comprise only 2\% of the land in the continental United States.
+
+This activity is intended to help reinforce concepts of sampling and confidence intervals while simultaneously understanding how to estimate the proportion of the United States that is within 1 mile of a road. 
+
+You will work in pairs, and will need one computer per group.  Please run the following lines in RStudio:
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{require}\hlstd{(mosaic)}
+\hlkwd{source}\hlstd{(}\hlstr{"http://nhorton.people.amherst.edu/roadless-setup.R"}\hlstd{)}
+\hlstd{myroadless}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+This will create a data frame called {\tt myroadless} and display it.
+Now, one at a time, run the {\tt getLocation()} commands (one for each of the 20 locations you randomly sampled), taking notes of whether it was within the continental US, if so, whether it was within a mile of a road, as well as any notes about the location (please specify which state, ocean, or country it is in).  These should be entered into the spreadsheet as well as on the table provided in this handout.  (The first time you should run {\tt getLocation(1)}, then {\tt getLocation(2)}, etc.).  If the google map doesn't display, please ensure that your popup blocker is turned off.
+
+
+
+\begin{table}[h]
+  \centering
+  \scalebox{1.3}{
+\begin{tabular}{|c|c|c|p{2in}|}
+\hline
+\# & w/in cont. & w/in 1 mile & notes/description \\ \hline \hline
+1 & & & \\ \hline
+2 & & & \\ \hline
+3 & & & \\ \hline
+4 & & & \\ \hline
+5 & & & \\ \hline
+6 & & & \\ \hline
+7 & & & \\ \hline
+8 & & & \\ \hline
+9 & & & \\ \hline
+10 & & & \\ \hline
+11 & & & \\ \hline
+12 & & & \\ \hline
+13 & & & \\ \hline
+14 & & & \\ \hline
+15 & & & \\ \hline
+16 & & & \\ \hline
+17 & & & \\ \hline
+18 & & & \\ \hline
+19 & & & \\ \hline
+20 & & & \\ \hline \hline
+Total & & & \\ [2ex] \hline
+\end{tabular}
+}
+  \end{table}
+
+\begin{enumerate}
+  \itemsep0.1in
+  \item Calculate $X$, the number within both the continental US and 1 mile of a road.
+  \item Calculate $n$, the total number within the continent.
+  \item Calculate $\hat{p} = X/n$, their ratio as your observed proportion.
+  \item Calculate a 95\% confidence interval for the population proportion using the exact binomial method ({\tt binom.test(X, n)}). Add this interval on the board (along with your values of $X$ and $n$).
+\end{enumerate}
+
+\vspace{.2in}
+
+CLASS RESULTS:
+
+
+
+
+\end{document}
